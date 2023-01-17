@@ -1,0 +1,33 @@
+/*Name - Pawni Agarwal
+Section - A
+Roll no - 04*/
+#include<stdio.h>
+#define MAX 100
+int main()
+{
+    int arr[MAX], i=0, n=0, num=0;
+    printf("enter n:");
+    scanf("%d",&n);
+
+    printf("enter elements:");
+    for(i=0; i<n; i++)
+        scanf("%d",&arr[i]);
+
+        printf("enter element to be found:");
+        scanf("%d",&num);
+
+        find(n,arr,num);
+}
+int find(int n, int arr[], int num)
+{
+    int flag=0;
+    for(int i=0; i<n; i++)
+    {
+         if(num==arr[i])
+            flag=1;
+    }
+  if(flag>0)
+            printf("element found");
+        else
+            printf("element not found");
+}
