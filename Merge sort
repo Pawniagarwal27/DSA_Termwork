@@ -1,0 +1,57 @@
+#include<stdio.h>
+#define MAX 100
+int b[MAX];
+
+void mergeSort(int l, int h, int a[])
+{
+    if(l<h)
+    {
+        int m = (l+h)/2;
+        mergeSort(l,m,a);
+        mergeSort(m+1,h,a);
+        merge(l,m,h,a);
+    }
+}
+
+void merge(int l, int m, int h, int a[])
+{
+    int i=l;
+    int j=m+1;
+    int k=l;
+
+    while(i<=m && j<=h)
+            {
+                if(a[i]<=a[j])
+                    b[k++]=a[i++];
+                else
+                    b[k++]=a[j++];
+            }
+
+        for(;i<=m; i++)
+            b[k++]=a[i];
+
+        for(;j<=h; j++)
+            b[k++]=a[j];
+
+        for(i=l; i<h; i++)
+            a[i]=b[i];
+}
+
+int main()
+{
+    int a[MAX], n, i, l,h;
+    printf("Enter n:");
+    scanf("%d",&n);
+
+    l=0;
+    h=n-1;
+
+    printf("Enter elements:");
+    for(i=0; i<n; i++)
+        scanf("%d",&a[i]);
+
+    mergeSort(l,h,a);
+
+    for(i=0; i<n; i++)
+        printf("%d, ",a[i]);
+}
