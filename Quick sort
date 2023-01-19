@@ -1,0 +1,60 @@
+#include <stdio.h>
+void quicksort(int [],int,int);
+int partition(int [],int,int);
+
+int main()
+{
+    int arr[]={40,45,56,12,1,89,56,34};
+    int i=0;
+    for(i=0;i<8;i++)
+        printf("%d ",arr[i]);
+
+    quicksort(arr,0,7);
+    printf("\n");
+
+    for(i=0;i<8;i++)
+        printf("%d ",arr[i]);
+
+    return 0;
+}
+
+void quicksort(int ar[],int l, int h)
+{
+    int m=0;
+    if(l<h)
+    {
+        m=partition(ar,l,h);
+        //printf("\n%d %d %d",l,m,h);
+        quicksort(ar,l,m-1);
+        quicksort(ar,m+1,h);
+    }
+}
+
+int partition(int ar[],int l,int h)
+{
+    int key=ar[l];
+    int p=l;
+    int q=h;
+    int tmp=0;
+    while(p<q)
+    {
+        while(ar[p]<=key)
+            p++;
+
+        while(ar[q]>key)
+            q--;
+
+        if(p<q)
+        {
+            tmp=ar[p];
+            ar[p]=ar[q];
+            ar[q]=tmp;
+        }
+    }
+
+    tmp=ar[l];
+    ar[l]=ar[q];
+    ar[q]=tmp;
+
+    return(q);
+}
