@@ -1,0 +1,113 @@
+#include<stdio.h>
+#define MAX 100
+
+int queue[MAX];
+int output[MAX];
+int arr[MAX][MAX];
+
+int F=-1,R=-1;
+int k=0;
+
+void queueInsert(int num)
+{
+    if(R==MAX-1)
+        printf("queue overflow");
+    else
+    {
+        if(F==-1)
+            F=0;
+
+        R++;
+        queue[R]=num;
+        output[k++]=num;
+    }
+}
+
+void queueDelete()
+{
+    if(F==-1)
+        printf("Queue underflow");
+    else
+    {
+        printf("Deleted element is %d",queue[F]);
+        F++;
+    }
+}
+
+int searchArray(int num, int output[])
+{
+    int b=0;
+    for(int i=0; i<=R; i++)
+    {
+        if(output[i]==num)
+            b=1;
+    }
+    return b;
+}
+
+void DFSAlgo(int snode, int n)
+{
+    for(int i=1; i<n; i++)
+    {
+        if(arr[snode][i]==1)
+        {
+            if(searchArray(i,output)==0)
+               queueInsert(i);
+        }
+    }
+}
+
+int main()
+{
+    int n,num;
+    printf("Enter number of vertices in graph ");
+    scanf("%d",&n);
+    n=n+1;
+
+    for(int i=0; i<n; i++)
+    {
+        for(int j=0; j<n; j++)
+           arr[i][j]=0;
+    }
+
+    int snode=1;
+    for(int i=1; i<n; i++)
+    {
+     for(int j=1; j<n; j++)
+     {
+        printf("Enter Vertex Connected with Vertex %d : ",i);
+        scanf("%d",&num);
+        if(num<0)
+            break;
+        else
+         arr[i][num]=1;
+     }
+    }
+
+    for(int i=1; i<n; i++)
+    {
+        printf("%d: ",i);
+        for(int j=1; j<n; j++)
+        {
+            printf("%d",arr[i][j]);
+        }
+        printf("\n");
+    }
+
+
+    queueInsert(snode);
+    int i=F;
+    while(i<=R)
+    {
+        printf("%d, ",queue[i]);
+        snode=queue[i];
+        DFSAlgo(snode, n);
+        queueDelete();
+        i++;
+    }
+
+    for(int j=0; j<k; j++)
+        printf("%d",output[j]);
+
+    return 0;
+}
