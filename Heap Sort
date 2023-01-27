@@ -1,0 +1,57 @@
+#include<stdio.h>
+#define MAX 100
+void heapify(int a[], int n, int i);
+void heapsort(int a[], int n);
+
+int main()
+{
+    int a[MAX],n,i;
+    printf("Enter n:");
+    scanf("%d",&n);
+
+    printf("Enter elements:");
+    for(i=0; i<n; i++)
+        scanf("%d",&a[i]);
+
+    heapsort(a,n-1);
+
+    for(i=0; i<n; i++)
+        printf("%d ",a[i]);
+}
+
+void heapify(int a[], int n, int i)
+{
+    int largest, l, r, temp;
+    largest = i;
+    l = (2*i)+1;
+    r = (2*i)+2;
+
+    if(l<n && a[l]>a[largest])
+        largest = l;
+
+    if(r<n && a[r]>a[largest])
+        largest = r;
+
+    if(largest!=i)
+    {
+        temp = a[largest];
+        a[largest] = a[i];
+        a[i] = temp;
+        heapify(a,n,largest);
+    }
+}
+
+void heapsort(int a[], int n)
+{
+    if(n!=-1)
+    {
+         for(int i=n; i>=0; i--)
+        heapify(a,n,i);
+
+        int temp = a[0];
+        a[0] = a[n];
+        a[n] = temp;
+
+        heapsort(a,n-1);
+    }
+}
